@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "312382995553",
+    "project_id": "waste-management-890f0",
+    "storage_bucket": "waste-management-890f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312382995553:android:aa979ed814c96a8bc6fe20",
+        "android_client_info": {
+          "package_name": "com.example.waste_management"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "312382995553-c5sg0vfscf59ej0kq08073qqfqp3bprg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.waste_management",
+            "certificate_hash": "49269c23624ef69f4a9352706599a443adc8b7b7"
+          }
+        },
+        {
+          "client_id": "312382995553-kus00vg99mgr9pus0f3ttmcu2k49mmte.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCL106ZndmYhWRbk4Ed0GwoFRrE4rqcmg0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "312382995553-kus00vg99mgr9pus0f3ttmcu2k49mmte.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312382995553:android:10524699a86dcf9cc6fe20",
+        "android_client_info": {
+          "package_name": "com.example.waste_management_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "312382995553-kus00vg99mgr9pus0f3ttmcu2k49mmte.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCL106ZndmYhWRbk4Ed0GwoFRrE4rqcmg0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "312382995553-kus00vg99mgr9pus0f3ttmcu2k49mmte.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
