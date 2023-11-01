@@ -7,6 +7,7 @@ import 'package:waste_management_admin/domain/entities/weekly_collection.dart';
 import 'package:waste_management_admin/domain/repositories/weekly_collection.dart';
 import 'package:waste_management_admin/infrastructure/waste_collection/collection_update.dart';
 import 'package:waste_management_admin/presentation/bloc/collection_schedule/collection_schedule_bloc.dart';
+import 'package:waste_management_admin/presentation/screen/wastecollection/amount_collected.dart';
 import 'package:waste_management_admin/presentation/widget/backbutton.dart';
 import 'package:waste_management_admin/presentation/screen/wastecollection/requested_people_screen.dart';
 import 'package:waste_management_admin/presentation/widget/list_view.dart';
@@ -22,8 +23,8 @@ class CollectionListView extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: size.height,
+          width: size.width,
           decoration: const BoxDecoration(
               gradient: LinearGradient(
                   colors: [Color(0xff44ADA8), Color(0xffC3EFB7)],
@@ -46,7 +47,13 @@ class CollectionListView extends StatelessWidget {
                         style: ButtonStyle(
                             backgroundColor:
                                 MaterialStatePropertyAll(forthColor)),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) {
+                              return AmountCollected();
+                            },
+                          ));
+                        },
                         child: Text(
                           "Total Amount collected",
                           style: primaryfont(color: white),
