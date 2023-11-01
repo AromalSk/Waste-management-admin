@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:waste_management_admin/domain/entities/full_bin_images.dart';
 
 Future<List<FullBinImages>> getallBin(String userId) async {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:waste_management_admin/constants/constants.dart';
 import 'package:waste_management_admin/presentation/widget/backbutton.dart';
 
+// ignore: must_be_immutable
 class LocationShowingScreen extends StatefulWidget {
   LocationShowingScreen(
       {super.key,
@@ -56,7 +57,7 @@ class _LocationShowingScreenState extends State<LocationShowingScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CircleAvatar(
-                      backgroundColor: Color(0xffFFFFFFF),
+                      backgroundColor: const Color(0xffFFFFFF),
                       radius: 30,
                       child: widget.gender == "Female"
                           ? Image.asset(
@@ -111,7 +112,7 @@ class _LocationShowingScreenState extends State<LocationShowingScreen> {
                     setState(() {
                       widget.status = value;
 
-                      print(widget.status);
+                      // print(widget.status);
                     });
                     FirebaseFirestore.instance
                         .collection('full-bin-images')
@@ -119,7 +120,7 @@ class _LocationShowingScreenState extends State<LocationShowingScreen> {
                         .collection('image-list')
                         .doc(widget.id)
                         .update({"status": widget.status});
-                    print("success");
+                    // print("success");
                   },
                 ),
                 Text(

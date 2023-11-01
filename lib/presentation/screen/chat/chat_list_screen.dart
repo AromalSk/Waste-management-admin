@@ -8,8 +8,9 @@ import 'package:waste_management_admin/presentation/widget/backbutton.dart';
 class ChatListScreen extends StatelessWidget {
   const ChatListScreen({super.key});
 
+  @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    // final Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
           height: MediaQuery.of(context).size.height,
@@ -61,7 +62,7 @@ class ChatListScreen extends StatelessWidget {
                                           child: ListTile(
                                             leading: CircleAvatar(
                                                 backgroundColor:
-                                                    Color(0xffFFFFFF),
+                                                    const Color(0xffFFFFFF),
                                                 radius: 30,
                                                 child: snapshot.data![index]
                                                             .gender ==
@@ -119,11 +120,12 @@ Future<List<UserId>> getAllUsers() async {
   return users;
 }
 
-Future getDocId() async {
-  await FirebaseFirestore.instance
-      .collection('chat')
-      .get()
-      .then((snapshot) => snapshot.docs.forEach((element) {
-            print("${element.reference}");
-          }));
-}
+// Future getDocId() async {
+//   await FirebaseFirestore.instance
+//       .collection('chat')
+//       .get()
+//       // ignore: avoid_function_literals_in_foreach_calls
+//       .then((snapshot) => snapshot.docs.forEach((element) {
+          
+//           }));
+// }

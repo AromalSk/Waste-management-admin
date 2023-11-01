@@ -10,6 +10,7 @@ import 'package:waste_management_admin/presentation/widget/backbutton.dart';
 import 'package:waste_management_admin/presentation/widget/message_bubble_admin.dart';
 import 'package:waste_management_admin/presentation/widget/message_bubble_user.dart';
 
+// ignore: must_be_immutable
 class ChatSupport extends StatelessWidget {
   String userId;
   ChatSupport({super.key, required this.userId});

@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:waste_management_admin/domain/entities/collection_schedule.dart';
 import 'package:waste_management_admin/domain/repositories/collection_schedule.dart';
 
