@@ -16,8 +16,8 @@ class RequestedPeopleScreen extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: size.height,
+          width: size.width,
           decoration: const BoxDecoration(
               gradient: LinearGradient(
                   colors: [Color(0xff44ADA8), Color(0xffC3EFB7)],

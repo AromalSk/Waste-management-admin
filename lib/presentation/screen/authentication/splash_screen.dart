@@ -3,60 +3,17 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:waste_management_admin/constants/constants.dart';
-import 'package:waste_management_admin/presentation/screen/authenticationadmin/login_signup_screen.dart';
+import 'package:waste_management_admin/presentation/bloc/spalshscreen/splashscreen_bloc.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    log("1");
-
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginSignup()),
-      );
-    });
-
-    checkPhoneNumberField();
-  }
-
-  Future<void> checkPhoneNumberField() async {
-    DocumentSnapshot snapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
-
-    if (snapshot.exists) {
-      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-      if (data["phonenumber"] == null) {
-        print("3");
-        await FirebaseAuth.instance.currentUser!.delete();
-      }
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    // Future<bool> details = FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(FirebaseAuth.instance.currentUser!.uid)
-    //     .get()
-    //     .then((value) => value.data()!.containsKey("phonenumber"));
-    // if (details == false) {
-    //   print("3");
-    //   FirebaseAuth.instance.currentUser!.delete();
-    // }
-
+    context.read<SplashscreenBloc>().add(SplashscreenEvent.navigating(context));
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,

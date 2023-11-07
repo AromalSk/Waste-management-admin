@@ -56,9 +56,7 @@ class AmountCollected extends StatelessWidget {
                                       style: primaryfont(fontSize: 14)),
                                 );
                               } else {
-                                return Center(
-                                  child: CircularProgressIndicator(),
-                                );
+                                return Center();
                               }
                             });
                       },

@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:waste_management_admin/constants/constants.dart';
 import 'package:waste_management_admin/infrastructure/authentication/google_signin.dart';
-import 'package:waste_management_admin/presentation/screen/authenticationadmin/login_screen.dart';
-import 'package:waste_management_admin/presentation/screen/authenticationadmin/signup_screen.dart';
+import 'package:waste_management_admin/presentation/screen/authentication/details_screen.dart';
+import 'package:waste_management_admin/presentation/screen/authentication/login_screen.dart';
+import 'package:waste_management_admin/presentation/screen/authentication/signup_screen.dart';
 import 'package:waste_management_admin/presentation/screen/home/homepage.dart';
 
 class LoginSignup extends StatelessWidget {
@@ -29,8 +30,8 @@ class LoginSignup extends StatelessWidget {
             );
           }
           return Container(
-            // height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
+            height: size.height,
+            width: size.width,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('asset/images/login-signin.jpg'),
@@ -44,8 +45,8 @@ class LoginSignup extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                      height: MediaQuery.of(context).size.height * .06,
-                      width: MediaQuery.of(context).size.width * .6,
+                      height: size.height * .06,
+                      width: size.width * .6,
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
@@ -65,8 +66,8 @@ class LoginSignup extends StatelessWidget {
                       )),
                   sizedBox10,
                   SizedBox(
-                      height: MediaQuery.of(context).size.height * .06,
-                      width: MediaQuery.of(context).size.width * .6,
+                      height: size.height * .06,
+                      width: size.width * .6,
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
@@ -87,12 +88,11 @@ class LoginSignup extends StatelessWidget {
                       height: size.height * .06,
                       width: size.width * .6,
                       child: ElevatedButton(
-                        onPressed: () {
-                          // AuthService().signInWithGoogle();
-                          googleLogin();
+                        onPressed: ()async {
+                         await googleLogin();
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) {
-                              return const LoginSignup();
+                              return DetailScreen();
                             },
                           ));
                         },

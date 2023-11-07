@@ -1,6 +1,8 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:waste_management_admin/domain/entities/user.dart';
 
 final googleSignIn = GoogleSignIn();
 
@@ -21,6 +23,14 @@ Future googleLogin() async {
   log("login 3");
   try {
     await FirebaseAuth.instance.signInWithCredential(credential);
+    final details = FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid);
+
+    final user =
+        UserDetails(email: FirebaseAuth.instance.currentUser!.email.toString());
+    await details.set(user.toMap());
+
     log("Authentication successful");
   } catch (e) {
     log("Authentication error: $e");

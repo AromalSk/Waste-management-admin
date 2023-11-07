@@ -1,9 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waste_management_admin/constants/constants.dart';
-import 'package:waste_management_admin/infrastructure/authentication/login.dart';
-import 'package:waste_management_admin/presentation/screen/authenticationadmin/login_signup_screen.dart';
+import 'package:waste_management_admin/presentation/bloc/login/login_bloc.dart';
+import 'package:waste_management_admin/presentation/screen/authentication/login_signup_screen.dart';
 import 'package:waste_management_admin/presentation/widget/textformfield.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -34,8 +35,10 @@ class LoginScreen extends StatelessWidget {
 
   Future<void> _handleSignIn(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-     await logIn(emailController.text.trim(), passwordController.text.trim());
-          
+      // await logIn(emailController.text.trim(), passwordController.text.trim());
+      context.read<LoginBloc>().add(LoginEvent.login(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim()));
       if (FirebaseAuth.instance.currentUser != null) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const LoginSignup()),
@@ -51,8 +54,8 @@ class LoginScreen extends StatelessWidget {
       body: Form(
         key: _formKey,
         child: Container(
-          // height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: size.height,
+          width: size.width,
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('asset/images/login-signin.jpg'),
@@ -102,20 +105,21 @@ class LoginScreen extends StatelessWidget {
                     ),
                     sizedBox10,
                     SizedBox(
-                        height: MediaQuery.of(context).size.height * .06,
-                        width: MediaQuery.of(context).size.width * .6,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _handleSignIn(context);
-                          },
-                          style: const ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(primaryColor)),
-                          child: Text(
-                            "Login",
-                            style: primaryfont(color: white, fontSize: 24),
-                          ),
-                        )),
+                      height: size.height * .06,
+                      width: size.width * .6,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _handleSignIn(context);
+                        },
+                        style: const ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(primaryColor)),
+                        child: Text(
+                          "Login",
+                          style: primaryfont(color: white, fontSize: 24),
+                        ),
+                      ),
+                    ),
                   ],
                 )
               ],

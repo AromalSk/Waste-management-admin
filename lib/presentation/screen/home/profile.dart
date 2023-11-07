@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:waste_management_admin/constants/constants.dart';
-import 'package:waste_management_admin/presentation/screen/authenticationadmin/login_signup_screen.dart';
+import 'package:waste_management_admin/presentation/screen/authentication/login_signup_screen.dart';
 
 import '../../../infrastructure/authentication/google_signin.dart';
 
@@ -15,7 +15,7 @@ class Profile extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
-        // height: MediaQuery.of(context).size.height,
+        height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -162,15 +162,7 @@ class Profile extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         try {
-                          FirebaseAuth.instance.signOut();
-                          print("11");
-                          googleSignIn.disconnect();
-                          print("3");
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) {
-                              return const LoginSignup();
-                            },
-                          ));
+                          _showLogoutDialog(context);
                         } catch (e) {
                           log(e.toString());
                         }
@@ -197,4 +189,41 @@ class Profile extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showLogoutDialog(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text("Logout ?"),
+          content: const Text("Are you sure you want to logout?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () async {
+                try {
+                  await logout();
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) {
+                      return const LoginSignup();
+                    },
+                  ));
+                } catch (e) {
+                  log(e.toString());
+                  print(e.toString());
+                }
+
+                //  Navigator.of(context).pop();
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      });
 }

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waste_management_admin/presentation/bloc/collection_schedule/collection_schedule_bloc.dart';
 import 'package:waste_management_admin/presentation/bloc/gender/gender_bloc.dart';
-import 'package:waste_management_admin/presentation/screen/authenticationadmin/splash_screen.dart';
+import 'package:waste_management_admin/presentation/bloc/login/login_bloc.dart';
+import 'package:waste_management_admin/presentation/bloc/spalshscreen/splashscreen_bloc.dart';
+import 'package:waste_management_admin/presentation/screen/authentication/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +20,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => SplashscreenBloc()),
+        BlocProvider(create: (context) => LoginBloc()),
         BlocProvider(create: (context) => GenderBloc()),
         BlocProvider(create: (context) => CollectionScheduleBloc())
       ],

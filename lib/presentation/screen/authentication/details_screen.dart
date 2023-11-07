@@ -6,16 +6,11 @@ import 'package:waste_management_admin/constants/constants.dart';
 import 'package:waste_management_admin/domain/entities/user.dart';
 import 'package:waste_management_admin/infrastructure/authentication/validation.dart';
 import 'package:waste_management_admin/presentation/bloc/gender/gender_bloc.dart';
-import 'package:waste_management_admin/presentation/screen/authenticationadmin/login_signup_screen.dart';
+import 'package:waste_management_admin/presentation/screen/authentication/login_signup_screen.dart';
 import 'package:waste_management_admin/presentation/widget/textformfield.dart';
 
 class DetailScreen extends StatefulWidget {
-  DetailScreen(
-      {super.key, this.email, this.phonenumber, this.username, this.password});
-  String? email;
-  String? phonenumber;
-  String? username;
-  String? password;
+  const DetailScreen({super.key});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -44,8 +39,8 @@ class _DetailScreenState extends State<DetailScreen> {
             key: _formkey,
             child: SingleChildScrollView(
               child: Container(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
+                height: size.height,
+                width: size.width,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('asset/images/login-signin.jpg'),
@@ -75,7 +70,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         style: primaryfont(color: thirdColor, fontSize: 20),
                       ),
                       SizedBox(
-                        height: size.height * 0.1,
+                        height: size.height * 0.04,
                       ),
                       Column(
                         children: [
@@ -129,8 +124,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                   prefixIconConstraints: const BoxConstraints(
                                     minWidth: 70,
                                   ),
-                                  contentPadding:
-                                      const EdgeInsets.only(top: 30, right: 30)),
+                                  contentPadding: const EdgeInsets.only(
+                                      top: 30, right: 30)),
                             ),
                           ),
                           sizedBox30,
@@ -163,7 +158,8 @@ class _DetailScreenState extends State<DetailScreen> {
                                         Icons.date_range,
                                         color: white,
                                       ),
-                                      prefixIconConstraints: const BoxConstraints(
+                                      prefixIconConstraints:
+                                          const BoxConstraints(
                                         minWidth: 70,
                                       ),
                                       contentPadding: const EdgeInsets.only()),
@@ -178,7 +174,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               Text(
                                 "Select your gender",
                                 style: primaryfont(
-                                    color: grey,
+                                    color: white,
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500),
                               ),
@@ -282,16 +278,16 @@ class _DetailScreenState extends State<DetailScreen> {
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid);
       print('4');
-      final user = UserDetails(
-          userId: details.id,
-          dateTime: DateTime.now(),
-          email: widget.email,
-          phonenumber: phoneNumberController.text.trim(),
-          userName: usernameController.text.trim(),
-          address: addressController.text,
-          birthdate: dateOfBirthController.text,
-          gender: gender);
-      await details.update(user.toMap());
+      final user = {
+        'userId': details.id,
+        'dateTime': DateTime.now(),
+        'phonenumber': phoneNumberController.text.trim(),
+        'userName': usernameController.text.trim(),
+        'address': addressController.text,
+        'birthdate': dateOfBirthController.text,
+        'gender': gender
+      };
+      await details.update(user);
       print("5");
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) {

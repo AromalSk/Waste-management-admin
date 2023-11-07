@@ -5,17 +5,12 @@ import 'package:waste_management_admin/constants/constants.dart';
 import 'package:waste_management_admin/domain/entities/user.dart';
 import 'package:waste_management_admin/infrastructure/authentication/signup.dart';
 import 'package:waste_management_admin/infrastructure/authentication/validation.dart';
-import 'package:waste_management_admin/presentation/screen/authenticationadmin/details_screen.dart';
+import 'package:waste_management_admin/presentation/screen/authentication/details_screen.dart';
 import 'package:waste_management_admin/presentation/widget/textformfield.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  SignUpScreen({super.key});
 
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
@@ -35,8 +30,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
     return null;
   }
-
-  handleSignUp() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -128,9 +121,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) {
                                       return DetailScreen(
-                                        email: emailController.text.trim(),
-                                        password:
-                                            passwordController.text.trim(),
+                                        
                                       );
                                     },
                                   ));
@@ -168,7 +159,7 @@ class DummySignup extends StatelessWidget {
         if (snapshot.hasData) {
           return DetailScreen();
         } else {
-          return const SignUpScreen();
+          return SignUpScreen();
         }
       },
     );
