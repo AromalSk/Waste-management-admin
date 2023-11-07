@@ -151,6 +151,13 @@ class BinAddDeleteState extends State<BinAddDelete> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Bin Location",
+          style: primaryfont(color: primaryColor),
+        ),
+        centerTitle: true,
+      ),
       body: GoogleMap(
           onTap: _onMapTapped,
           mapType: MapType.normal,
@@ -163,7 +170,11 @@ class BinAddDeleteState extends State<BinAddDelete> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FloatingActionButton.extended(
-            label: const Text("current location"),
+            backgroundColor: primaryColor,
+            label: Text(
+              "current location",
+              style: primaryfont(color: white),
+            ),
             onPressed: () async {
               loadData();
             },
