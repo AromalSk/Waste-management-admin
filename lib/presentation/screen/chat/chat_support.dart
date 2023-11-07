@@ -85,8 +85,8 @@ class ChatSupport extends StatelessWidget {
                       },
                       itemBuilder: (context, element) {
                         return element.isSentByMe
-                            ? MessageBubbleAdmin(message: element.text)
-                            : MessageBubbleUser(message: element.text);
+                            ? MessageBubbleAdmin(message: element.text,date:element.dateTime)
+                            : MessageBubbleUser(message: element.text,date:element.dateTime);
                       },
                     )),
                     Padding(
