@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:waste_management_admin/presentation/bloc/collection_marker/collection_marker_bloc.dart';
 import 'package:waste_management_admin/presentation/bloc/collection_schedule/collection_schedule_bloc.dart';
 import 'package:waste_management_admin/presentation/bloc/gender/gender_bloc.dart';
 import 'package:waste_management_admin/presentation/bloc/login/login_bloc.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => CollectionMarkerBloc()),
         BlocProvider(create: (context) => SplashscreenBloc()),
         BlocProvider(create: (context) => LoginBloc()),
         BlocProvider(create: (context) => GenderBloc()),

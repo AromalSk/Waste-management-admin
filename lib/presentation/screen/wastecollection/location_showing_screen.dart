@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:waste_management_admin/constants/constants.dart';
+import 'package:waste_management_admin/presentation/bloc/collection_marker/collection_marker_bloc.dart';
 import 'package:waste_management_admin/presentation/widget/backbutton.dart';
 
 class LocationShowingScreen extends StatefulWidget {
-  LocationShowingScreen({super.key, required this.location});
+  LocationShowingScreen(
+      {super.key,
+      required this.location,
+      required this.latitude,
+      required this.longitude});
   String location;
+  String latitude;
+  String longitude;
 
   @override
   State<LocationShowingScreen> createState() => _LocationShowingScreenState();
@@ -16,6 +25,8 @@ class _LocationShowingScreenState extends State<LocationShowingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<CollectionMarkerBloc>().add(MarkerProvider(
+        double.parse(widget.latitude), double.parse(widget.longitude)));
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
@@ -59,14 +70,37 @@ class _LocationShowingScreenState extends State<LocationShowingScreen> {
                         borderRadius: BorderRadius.circular(50)),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: GoogleMap(initialCameraPosition: _kGooglePlex)),
+                        child: BlocBuilder<CollectionMarkerBloc,
+                            CollectionMarkerState>(
+                          builder: (context, state) {
+                            return GoogleMap(
+                                markers: state.marker,
+                                initialCameraPosition: CameraPosition(
+                                  target: LatLng(double.parse(widget.latitude),
+                                      double.parse(widget.longitude)),
+                                  zoom: 14.4746,
+                                ));
+                          },
+                        )),
                   ),
                   sizedBox30,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          try {
+                            if (await canLaunchUrl(Uri.parse(
+                                'https://www.google.com/maps/dir/?api=1&destination=${widget.latitude},${widget.longitude}'))) {
+                              await launchUrl(Uri.parse(
+                                  'https://www.google.com/maps/dir/?api=1&destination=${widget.latitude},${widget.longitude}'));
+                            } else {
+                              throw 'Could not launch';
+                            }
+                          } catch (e) {
+                            print(e.toString());
+                          }
+                        },
                         style: const ButtonStyle(
                             backgroundColor:
                                 MaterialStatePropertyAll(primaryColor)),
@@ -120,8 +154,9 @@ class _LocationShowingScreenState extends State<LocationShowingScreen> {
     );
   }
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(9.93854004152453, 76.32178450376257),
-    zoom: 14.4746,
-  );
+  // static CameraPosition _kGooglePlex = CameraPosition(
+  //   target:
+  //       LatLng(double.parse(widget.latitude), double.parse(widget.longitude)),
+  //   zoom: 14.4746,
+  // );
 }

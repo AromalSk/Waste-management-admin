@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:waste_management_admin/constants/constants.dart';
 import 'package:waste_management_admin/presentation/widget/backbutton.dart';
 
@@ -12,13 +13,17 @@ class LocationShowingScreen extends StatefulWidget {
       required this.image,
       required this.status,
       required this.id,
-      required this.userId});
+      required this.userId,
+      required this.latitude,
+      required this.longitude});
   String address;
   String image;
   String gender;
   bool status;
   String userId;
   String id;
+  String latitude;
+  String longitude;
 
   @override
   State<LocationShowingScreen> createState() => _LocationShowingScreenState();
@@ -129,23 +134,34 @@ class _LocationShowingScreenState extends State<LocationShowingScreen> {
                 ),
                 // Expanded(child: Container()),
                 sizedBox30,
-                Container(
-                  height: size.height * .08,
-                  decoration: const BoxDecoration(color: Color(0xff44ADA8)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.send,
-                        color: white,
-                        size: 30,
-                      ),
-                      sizedBoxW10,
-                      Text(
-                        "Location in Maps",
-                        style: primaryfont(color: white, fontSize: 24),
-                      )
-                    ],
+                GestureDetector(
+                  onTap: () async {
+                    if (await canLaunchUrl(Uri.parse(
+                        'https://www.google.com/maps/dir/?api=1&destination=${widget.latitude},${widget.longitude}'))) {
+                      await launchUrl(Uri.parse(
+                          'https://www.google.com/maps/dir/?api=1&destination=${widget.latitude},${widget.longitude}'));
+                    } else {
+                      throw 'Could not launch';
+                    }
+                  },
+                  child: Container(
+                    height: size.height * .08,
+                    decoration: const BoxDecoration(color: Color(0xff44ADA8)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.send,
+                          color: white,
+                          size: 30,
+                        ),
+                        sizedBoxW10,
+                        Text(
+                          "Location in Maps",
+                          style: primaryfont(color: white, fontSize: 24),
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],

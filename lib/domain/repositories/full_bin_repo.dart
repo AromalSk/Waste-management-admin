@@ -13,6 +13,8 @@ Future<List<FullBinImages>> getallBin(String userId) async {
     list = querySnapshot.docs.map((doc) {
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       return FullBinImages(
+          latitude: data['latitude'],
+          longitude: data['longitude'],
           imageListId: data['imageListId'],
           gender: data['gender'],
           dateTime: DateTime.now(),

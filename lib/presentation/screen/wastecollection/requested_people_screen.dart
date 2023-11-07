@@ -80,6 +80,8 @@ class RequestedPeopleScreen extends StatelessWidget {
                                                 .push(MaterialPageRoute(
                                               builder: (context) {
                                                 return LocationShowingScreen(
+                                                  latitude: element.latitude,
+                                                  longitude: element.longitude,
                                                   location: element.location,
                                                 );
                                               },

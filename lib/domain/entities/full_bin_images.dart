@@ -10,6 +10,8 @@ class FullBinImages {
   String userId;
   String gender;
   String imageListId;
+  String latitude;
+  String longitude;
   FullBinImages({
     required this.imagePath,
     required this.userLocation,
@@ -18,6 +20,8 @@ class FullBinImages {
     required this.userId,
     required this.gender,
     required this.imageListId,
+    required this.latitude,
+    required this.longitude,
   });
 
   FullBinImages copyWith({
@@ -28,6 +32,8 @@ class FullBinImages {
     String? userId,
     String? gender,
     String? imageListId,
+    String? latitude,
+    String? longitude,
   }) {
     return FullBinImages(
       imagePath: imagePath ?? this.imagePath,
@@ -37,6 +43,8 @@ class FullBinImages {
       userId: userId ?? this.userId,
       gender: gender ?? this.gender,
       imageListId: imageListId ?? this.imageListId,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
     );
   }
 
@@ -49,6 +57,8 @@ class FullBinImages {
       'userId': userId,
       'gender': gender,
       'imageListId': imageListId,
+      'latitude': latitude,
+      'longitude': longitude,
     };
   }
 
@@ -61,6 +71,8 @@ class FullBinImages {
       userId: map['userId'] as String,
       gender: map['gender'] as String,
       imageListId: map['imageListId'] as String,
+      latitude: map['latitude'] as String,
+      longitude: map['longitude'] as String,
     );
   }
 
@@ -71,30 +83,35 @@ class FullBinImages {
 
   @override
   String toString() {
-    return 'FullBinImages(imagePath: $imagePath, userLocation: $userLocation, status: $status, dateTime: $dateTime, userId: $userId, gender: $gender, imageListId: $imageListId)';
+    return 'FullBinImages(imagePath: $imagePath, userLocation: $userLocation, status: $status, dateTime: $dateTime, userId: $userId, gender: $gender, imageListId: $imageListId, latitude: $latitude, longitude: $longitude)';
   }
 
   @override
   bool operator ==(covariant FullBinImages other) {
     if (identical(this, other)) return true;
-
-    return other.imagePath == imagePath &&
-        other.userLocation == userLocation &&
-        other.status == status &&
-        other.dateTime == dateTime &&
-        other.userId == userId &&
-        other.gender == gender &&
-        other.imageListId == imageListId;
+  
+    return 
+      other.imagePath == imagePath &&
+      other.userLocation == userLocation &&
+      other.status == status &&
+      other.dateTime == dateTime &&
+      other.userId == userId &&
+      other.gender == gender &&
+      other.imageListId == imageListId &&
+      other.latitude == latitude &&
+      other.longitude == longitude;
   }
 
   @override
   int get hashCode {
     return imagePath.hashCode ^
-        userLocation.hashCode ^
-        status.hashCode ^
-        dateTime.hashCode ^
-        userId.hashCode ^
-        gender.hashCode ^
-        imageListId.hashCode;
+      userLocation.hashCode ^
+      status.hashCode ^
+      dateTime.hashCode ^
+      userId.hashCode ^
+      gender.hashCode ^
+      imageListId.hashCode ^
+      latitude.hashCode ^
+      longitude.hashCode;
   }
 }

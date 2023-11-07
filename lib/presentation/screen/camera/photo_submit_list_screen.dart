@@ -74,6 +74,8 @@ class _PhotoSubmittedListScreenState extends State<PhotoSubmittedListScreen> {
                                             status: element.status,
                                             id: element.imageListId,
                                             userId: element.userId,
+                                            latitude: element.latitude,
+                                            longitude: element.longitude,
                                           );
                                         },
                                       ));

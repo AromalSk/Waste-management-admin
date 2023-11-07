@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:waste_management_admin/constants/constants.dart';
 
-
 class MessageBubbleAdmin extends StatelessWidget {
   final String message;
   final DateTime date;
-  const MessageBubbleAdmin({super.key, required this.message,required this.date});
+  const MessageBubbleAdmin(
+      {super.key, required this.message, required this.date});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class MessageBubbleAdmin extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 8, top: 5),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -36,15 +36,19 @@ class MessageBubbleAdmin extends StatelessWidget {
                   child: Text(
                     message,
                     style: primaryfont(
-                        color: const Color(0xff44ADA8), fontWeight: FontWeight.w500),
+                        color: const Color(0xff44ADA8),
+                        fontWeight: FontWeight.w500),
                   ),
                 ),
               ),
             ],
           ),
-          Text(
-            DateFormat.jm().format(date),
-            style: primaryfont(fontSize: 10, color: forthColor),
+          Padding(
+            padding: const EdgeInsets.only(left: 5),
+            child: Text(
+              DateFormat.jm().format(date),
+              style: primaryfont(fontSize: 10, color: forthColor),
+            ),
           )
         ],
       ),
