@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:waste_management_admin/constants/constants.dart';
+import 'package:waste_management_admin/domain/entities/weekly_collection.dart';
 import 'package:waste_management_admin/presentation/bloc/collection_marker/collection_marker_bloc.dart';
 import 'package:waste_management_admin/presentation/widget/backbutton.dart';
 
@@ -11,18 +13,20 @@ class LocationShowingScreen extends StatefulWidget {
       {super.key,
       required this.location,
       required this.latitude,
-      required this.longitude});
+      required this.longitude,
+      required this.collection,
+      required this.index});
   String location;
   String latitude;
   String longitude;
+  WeeklyCollection collection;
+  int index;
 
   @override
   State<LocationShowingScreen> createState() => _LocationShowingScreenState();
 }
 
 class _LocationShowingScreenState extends State<LocationShowingScreen> {
-  bool isSelected = false;
-
   @override
   Widget build(BuildContext context) {
     context.read<CollectionMarkerBloc>().add(MarkerProvider(
@@ -128,7 +132,7 @@ class _LocationShowingScreenState extends State<LocationShowingScreen> {
                   ),
                   sizedBox10,
                   Switch(
-                    trackOutlineColor: isSelected
+                    trackOutlineColor: widget.collection.status
                         ? const MaterialStatePropertyAll(
                             Color.fromARGB(255, 103, 208, 107))
                         : const MaterialStatePropertyAll(
@@ -137,11 +141,49 @@ class _LocationShowingScreenState extends State<LocationShowingScreen> {
                         const Color.fromARGB(255, 255, 152, 145),
                     inactiveThumbColor: Colors.red,
                     activeColor: Colors.green,
-                    value: isSelected,
-                    onChanged: (value) {
+                    value: widget.collection.status,
+                    onChanged: (value) async {
                       setState(() {
-                        isSelected = value;
+                        widget.collection.status = value;
                       });
+                      FirebaseFirestore.instance
+                          .collection('weekly-collection-schedule')
+                          .doc('day${widget.index}')
+                          .collection('usersList')
+                          .doc(widget.collection.userId)
+                          .update({"status": widget.collection.status});
+
+                      // FirebaseFirestore.instance
+                      //     .collection('completed-bin-images')
+                      //     .doc(widget.collection.userId)
+                      //     .update({"status": widget.collection.status});
+
+                      // if (widget.collection.status) {
+                      //   DocumentSnapshot document = await FirebaseFirestore
+                      //       .instance
+                      //       .collection('weekly-collection-schedule')
+                      //       .doc('day${widget.index}')
+                      //       .collection('usersList')
+                      //       .doc(widget.collection.userId)
+                      //       .get();
+                      //   Map<String, dynamic> data =
+                      //       document.data() as Map<String, dynamic>;
+
+                      // Add the document to the completed collection
+                      // await FirebaseFirestore.instance
+                      //     .collection('completed-bin-images')
+                      //     .doc(widget.collection.userId)
+                      //     .set(data);
+
+                      // FirebaseFirestore.instance
+                      //     .collection('weekly-collection-schedule')
+                      //     .doc('day${widget.index}')
+                      //     .collection('usersList')
+                      //     .doc(widget.collection.userId)
+                      //     .delete();
+                      // }
+
+                      // print("success");
                     },
                   ),
                   sizedBox50
@@ -160,3 +202,25 @@ class _LocationShowingScreenState extends State<LocationShowingScreen> {
   //   zoom: 14.4746,
   // );
 }
+
+
+// addCompletedCollectionToFirebase(){
+//      if (widget.collection.status) {
+//                        DocumentSnapshot document = await FirebaseFirestore
+//                             .instance
+//                             .collection('weekly-collection-schedule')
+//                             .doc('day${widget.index}')
+//                             .collection('usersList')
+//                             .doc(widget.collection.userId)
+//                             .get();
+//                         Map<String, dynamic> data =
+//                             document.data() as Map<String, dynamic>;
+
+//                         // Add the document to the completed collection
+//                         await FirebaseFirestore.instance
+//                             .collection('completed-bin-images')
+//                             .doc(widget.collection.userId)
+//                             .set(data);
+//                       }
+
+//                       }

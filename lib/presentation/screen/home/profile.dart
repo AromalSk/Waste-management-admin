@@ -14,26 +14,10 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
-
     final Size size = MediaQuery.of(context).size;
-
-    // Future<UserDetails?> fetchData() async {
-    //   try {
-    //     final docUser =
-    //         FirebaseFirestore.instance.collection('users').doc(user.uid);
-    //     final snapshot = await docUser.get();
-
-    //     if (snapshot.exists) {
-    //       return UserDetails.fromJson(snapshot.data().toString());
-    //     }
-    //   } catch (e) {
-    //     print(e.toString());
-    //   }
-    // }
-
     return Scaffold(
         body: Container(
-      // height: MediaQuery.of(context).size.height,
+      height: size.height,
       width: size.width,
       decoration: const BoxDecoration(
           gradient: LinearGradient(

@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:waste_management_admin/constants/constants.dart';
 import 'package:waste_management_admin/domain/entities/bin_location.dart';
+import 'package:waste_management_admin/presentation/screen/bin/bin_location_admin.dart';
 
 class BinAddDelete extends StatefulWidget {
   const BinAddDelete({super.key});
@@ -133,6 +134,9 @@ class BinAddDeleteState extends State<BinAddDelete> {
                                 streetAddress!,
                                 tappedPosition.latitude,
                                 tappedPosition.longitude);
+                            Navigator.of(context).pop();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Location Added')));
                           },
                           child: const Text("Add location"))
                     ],
@@ -153,19 +157,55 @@ class BinAddDeleteState extends State<BinAddDelete> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Bin Location",
+          "Add Bin Location",
           style: primaryfont(color: primaryColor),
         ),
         centerTitle: true,
       ),
-      body: GoogleMap(
-          onTap: _onMapTapped,
-          mapType: MapType.normal,
-          markers: markers,
-          initialCameraPosition: _kGooglePlex,
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-          }),
+      body: Stack(
+        children: [
+          GoogleMap(
+              onTap: _onMapTapped,
+              mapType: MapType.normal,
+              markers: markers,
+              initialCameraPosition: _kGooglePlex,
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+              }),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) {
+                        return BinLocationAdmin();
+                      },
+                    ));
+                  },
+                  child: Container(
+                    height: 80,
+                    width: 80,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: primaryColor,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 5),
+                      child: Image.asset(
+                        'asset/images/bin-image-medium.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

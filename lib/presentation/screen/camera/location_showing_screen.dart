@@ -117,12 +117,10 @@ class _LocationShowingScreenState extends State<LocationShowingScreen> {
                     setState(() {
                       widget.status = value;
 
-                      // print(widget.status);
+                      print(widget.status);
                     });
                     FirebaseFirestore.instance
-                        .collection('full-bin-images')
-                        .doc(widget.userId)
-                        .collection('image-list')
+                        .collection('full-bin-images-admin')
                         .doc(widget.id)
                         .update({"status": widget.status});
                     // print("success");

@@ -74,7 +74,7 @@ class HomePage extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                Text(user.email.toString()),
+
                 sizedBox10,
                 Image.asset('asset/images/bin-handle-main.png'),
 

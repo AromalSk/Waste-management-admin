@@ -4,6 +4,8 @@ import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 import 'package:waste_management_admin/constants/constants.dart';
 import 'package:waste_management_admin/domain/entities/full_bin_images.dart';
+import 'package:waste_management_admin/domain/repositories/stream_fullbin.dart';
+import 'package:waste_management_admin/presentation/screen/camera/completed_full_bins.dart';
 import 'package:waste_management_admin/presentation/screen/camera/location_showing_screen.dart';
 import 'package:waste_management_admin/presentation/widget/backbutton.dart';
 
@@ -36,8 +38,29 @@ class _PhotoSubmittedListScreenState extends State<PhotoSubmittedListScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const BackButtonCustomMade(),
-                  FutureBuilder<List<FullBinImages>>(
-                    future: getFullbinAdmin(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStatePropertyAll(forthColor)),
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) {
+                                return CompletedFullBins();
+                              },
+                            ));
+                          },
+                          child: Text(
+                            "Completed Full Bins",
+                            style: primaryfont(color: white),
+                          ))
+                    ],
+                  ),
+                  sizedBox10,
+                  StreamBuilder<List<FullBinImages>>(
+                    stream: streamAllFullBin(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return Expanded(

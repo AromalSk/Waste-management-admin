@@ -7,6 +7,7 @@ Future<List<WeeklyCollection>> getallCollection(int index) async {
       .collection('weekly-collection-schedule')
       .doc('day$index')
       .collection('usersList')
+      .where('status', isEqualTo: false)
       .get();
 
   if (details.docs.isNotEmpty) {

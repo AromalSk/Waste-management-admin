@@ -9,6 +9,7 @@ class WeeklyCollection {
   String userId;
   DateTime dateTime;
   String type;
+  bool status;
   WeeklyCollection({
     required this.location,
     required this.latitude,
@@ -17,6 +18,7 @@ class WeeklyCollection {
     required this.userId,
     required this.dateTime,
     required this.type,
+    required this.status,
   });
 
   WeeklyCollection copyWith({
@@ -27,6 +29,7 @@ class WeeklyCollection {
     String? userId,
     DateTime? dateTime,
     String? type,
+    bool? status,
   }) {
     return WeeklyCollection(
       location: location ?? this.location,
@@ -36,6 +39,7 @@ class WeeklyCollection {
       userId: userId ?? this.userId,
       dateTime: dateTime ?? this.dateTime,
       type: type ?? this.type,
+      status: status ?? this.status,
     );
   }
 
@@ -48,6 +52,7 @@ class WeeklyCollection {
       'userId': userId,
       'dateTime': dateTime.millisecondsSinceEpoch,
       'type': type,
+      'status': status,
     };
   }
 
@@ -60,6 +65,7 @@ class WeeklyCollection {
       userId: map['userId'] as String,
       dateTime: DateTime.fromMillisecondsSinceEpoch(map['dateTime'] as int),
       type: map['type'] as String,
+      status: map['status'] as bool,
     );
   }
 
@@ -69,7 +75,7 @@ class WeeklyCollection {
 
   @override
   String toString() {
-    return 'WeeklyCollection(location: $location, latitude: $latitude, longitude: $longitude, amount: $amount, userId: $userId, dateTime: $dateTime, type: $type)';
+    return 'WeeklyCollection(location: $location, latitude: $latitude, longitude: $longitude, amount: $amount, userId: $userId, dateTime: $dateTime, type: $type, status: $status)';
   }
 
   @override
@@ -83,7 +89,8 @@ class WeeklyCollection {
       other.amount == amount &&
       other.userId == userId &&
       other.dateTime == dateTime &&
-      other.type == type;
+      other.type == type &&
+      other.status == status;
   }
 
   @override
@@ -94,6 +101,7 @@ class WeeklyCollection {
       amount.hashCode ^
       userId.hashCode ^
       dateTime.hashCode ^
-      type.hashCode;
+      type.hashCode ^
+      status.hashCode;
   }
 }
