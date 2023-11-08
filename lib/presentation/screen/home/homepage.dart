@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:waste_management_admin/constants/constants.dart';
 import 'package:waste_management_admin/presentation/screen/bin/bin_add_delete.dart';
 import 'package:waste_management_admin/presentation/screen/camera/photo_submit_list_screen.dart';
@@ -26,23 +28,47 @@ class HomePage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) {
-                            return const Profile();
+                    FutureBuilder(
+                      future: FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(user.uid)
+                          .get(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        var userData =
+                            snapshot.data!.data() as Map<String, dynamic>;
+
+                        return InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: const Profile()));
                           },
-                        ));
+                          child: CircleAvatar(
+                              radius: 40,
+                              backgroundColor: primaryColor,
+                              child: userData['gender'] == "Female"
+                                  ? Image.asset(
+                                      width: 70,
+                                      'asset/images/women.png',
+                                      fit: BoxFit.contain,
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.only(bottom: 4),
+                                      child: Image.asset(
+                                        width: 100,
+                                        'asset/images/man.png',
+                                        fit: BoxFit.contain,
+                                      ),
+                                    )),
+                        );
                       },
-                      child: CircleAvatar(
-                        radius: 40,
-                        backgroundColor: primaryColor,
-                        child: Image.asset(
-                          'asset/images/men.png',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
+                    )
                   ],
                 ),
                 const SizedBox(
